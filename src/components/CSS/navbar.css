@@ -1,0 +1,185 @@
+:root{
+  --header-h: 72px;
+  --sidebar-w: 240px;
+}
+
+/* Header */
+.header{
+  position: fixed; top:0; left:0; right:0; z-index:50;
+  background:#fff; color:#000; border-bottom:1px solid #ddd;
+  box-shadow:0 4px 4px rgba(0,0,0,.06);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:-60px 16px;
+}
+.left{ display:flex; align-items:center; gap:16px; }
+
+.logo-link{ display:flex; align-items:center; text-decoration:none; }
+.logo-u{
+  background:#28a745; color:#fff; width:28px; height:28px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; margin-right:6px; font-weight:700;
+}
+.Dev{ color:#28a745; margin-left:4px; }
+
+.menu-icon{ font-size:1.8rem; cursor:pointer; color:#28a745; }
+
+/* ===== User dropdown ===== */
+.user{ position: relative; z-index: 60; }
+.user-btn{
+  display:flex; align-items:center; gap:6px;
+  font-weight:600; color:#13db42;
+  background:transparent; border:0; padding:6px 8px; border-radius:8px;
+  cursor:pointer;
+  transition: background .2s ease, transform .12s ease;
+}
+.user-btn:hover{ background:#f5f5f5; }
+.user-btn:active{ transform: scale(.98); }
+.user-btn .drop-icon{ transition: transform .2s ease; font-size: 1.6rem; }
+.user-btn.open .drop-icon{ transform: rotate(180deg); }
+
+.user-menu{
+  position:absolute; right:0; top: calc(100% + 8px);
+  width: 220px; background:#fff; border:1px solid #eee; border-radius:8px;
+  box-shadow: 0 10px 22px rgba(0,0,0,.08);
+  padding:6px 0;
+  transform-origin: top right;
+  opacity:0; transform: scale(.98) translateY(-6px);
+  pointer-events:none;
+  transition: opacity .18s ease, transform .18s ease;
+}
+.user-menu.open{ opacity:1; transform: scale(1) translateY(0); pointer-events:auto; }
+
+.user-item{
+  width:100%; background:transparent; border:0; text-align:left;
+  display:flex; align-items:center; gap:10px;
+  padding:10px 14px; font-size:15.5px; color:#111; cursor:pointer;
+  transition: background .15s ease;
+}
+.user-item:hover{ background:#f7f7f7; }
+.user-item.danger{ color:#c0392b; }
+.user-divider{ height:1px; background:#eee; margin:4px 0; }
+
+
+/* Sidebar */
+.sidebar{
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  width: var(--sidebar-w);
+  height: calc(100vh - var(--header-h));
+  background:#fff;
+  box-shadow:2px 0 5px rgba(0,0,0,.1);
+  transform: translateX(-100%);
+  transition: transform .3s ease-in-out;
+  z-index: 40;
+}
+.sidebar.open{ transform: translateX(0); }
+
+/* Main content wrapper (ใส่ class="main" ที่ layout) */
+.main{
+  padding:20px;
+  transition: margin-left .3s ease;
+  margin-top: var(--header-h);
+  margin-left: 0;
+  min-width: 0; overflow-x:auto;
+}
+@media (min-width: 768px){
+  .main.shifted{ margin-left: var(--sidebar-w); }
+}
+@media (max-width: 767px){
+  .sidebar{ width: 200px; }
+}
+
+/* ===== Sidebar menu styles ===== */
+.menu-list, .menu-list ul{ list-style:none; margin:0; padding:0; }
+.menu-list{ padding:16px 18px; }
+
+.menu-item, .menu-link, .menu-group-btn, .submenu-link{
+  display:flex; align-items:center; gap:10px;
+  font-size:16px; line-height:28px;
+  color:#111; text-decoration:none;
+}
+
+/* ลิงก์หน้าแรก */
+.menu-link{ padding:6px 10px; border-radius:8px; }
+.menu-link:hover{ background:#f5f5f5; }
+.menu-link.active{ color:#28a745; font-weight:700; }
+
+/* ปุ่มหัวกลุ่ม */
+.menu-group{ margin-bottom:12px; }
+.menu-group-btn{
+  width:100%; justify-content:space-between; padding:8px 10px;
+  background:transparent; border:0; border-radius:8px; cursor:pointer;
+  -webkit-appearance:none; appearance:none;
+  transition: background .2s ease, transform .12s ease;
+}
+
+.menu-group-btn:hover{ background:#f5f5f5; }
+.menu-group-btn:focus-visible{ outline:2px solid #ccebd6; }
+.menu-group-btn.active-root{ color:#28a745; font-weight:700; }
+.mi-left{ display:flex; align-items:center; gap:10px; }
+.mi-right{ font-size:18px; padding-right:4px; }
+
+/* Submenu */
+.submenu{ margin:6px 0 10px 22px; }
+.submenu li{ margin:8px 0; }
+.submenu-link{ padding:2px 0; color:#222; }
+.submenu-link:hover{ color:#28a745; }
+.sub-ic{ color:inherit; opacity:.75; }
+.dash{ color:#555; margin-right:6px; font-weight:700; }
+
+/* active */
+.submenu-link.active{ color:#28a745; font-weight:700; background:#f0fff4; border-left:4px solid #28a745; }
+
+/* keep dash color fixed */
+.submenu-link .dash{ color:#94a3b8; }
+.submenu-link.active .dash{ color:#94a3b8; }  /* stays gray */
+
+.menu-group-btn:active { transform: scale(.98); }
+
+/* หมุน/ขยับเครื่องหมายขวา (ใช้กับ +/− หรือจะใส่ไอคอนลูกศรก็ได้) */
+.mi-right { transition: transform .22s ease; }
+.mi-right.open { transform: rotate(0deg) scale(1.05); }
+
+/* ====== Submenu accordion (open/close) ======
+   ใช้ max-height + opacity + translateY เพื่อให้ลื่น */
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    max-height .35s ease,
+    opacity .25s ease,
+    transform .25s ease;
+}
+.submenu.open {
+  /* ใส่ค่าสูงพอครอบรายการ (ปรับได้ตามจำนวนไอเท็ม) */
+  max-height: 520px;
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: .03s, 0s, 0s; 
+}
+
+/* Stagger รายการย่อยไหลทีละตัว */
+.submenu li {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity .24s ease, transform .24s ease;
+}
+.submenu.open li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* หน่วงทีละตัว (พอเหมาะกับ 7 ไอเท็มของคุณ) */
+.submenu.open li:nth-child(1) { transition-delay: .05s; }
+.submenu.open li:nth-child(2) { transition-delay: .09s; }
+.submenu.open li:nth-child(3) { transition-delay: .13s; }
+.submenu.open li:nth-child(4) { transition-delay: .17s; }
+.submenu.open li:nth-child(5) { transition-delay: .21s; }
+.submenu.open li:nth-child(6) { transition-delay: .25s; }
+.submenu.open li:nth-child(7) { transition-delay: .29s; }
+
+/* Sidebar slide (มีอยู่แล้ว แต่ใส่ timing ให้เนียนขึ้น) */
+.sidebar { transition: transform .3s cubic-bezier(.22,.61,.36,1); }
+
