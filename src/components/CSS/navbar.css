@@ -1,6 +1,7 @@
 :root{
   --header-h: 72px;
   --sidebar-w: 240px;
+  --font-family: "NotoSansLao", "Montserrat", sans-serif;
 }
 
 /* Header */
@@ -9,16 +10,20 @@
   background:#fff; color:#000; border-bottom:1px solid #ddd;
   box-shadow:0 4px 4px rgba(0,0,0,.06);
   display:flex; align-items:center; justify-content:space-between;
-  padding:-60px 16px;
+  padding:0px 16px;
 }
 .left{ display:flex; align-items:center; gap:16px; }
 
-.logo-link{ display:flex; align-items:center; text-decoration:none; }
-.logo-u{
-  background:#28a745; color:#fff; width:28px; height:28px; border-radius:50%;
-  display:flex; align-items:center; justify-content:center; margin-right:6px; font-weight:700;
+.logo-link{
+  display:flex; 
+  align-items: center;
+  text-decoration: none;
+  margin-bottom: 10px;
 }
-.Dev{ color:#28a745; margin-left:4px; }
+
+.logo-link img{
+  margin-top: 10px;
+}
 
 .menu-icon{ font-size:1.8rem; cursor:pointer; color:#28a745; }
 

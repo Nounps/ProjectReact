@@ -1,5 +1,7 @@
+/*
 /* ====== Layout base ====== */
-.main{ width:100%; padding:16px; box-sizing:border-box; }
+.delete-wrapper {padding: 60px 16px; /* like ov-wrapper */margin-left: 0;transition: margin-left .3s cubic-bezier(.4,0,.2,1);}
+.delete-wrapper.shifted { margin-left: 260px; } 
 
 .card{
   background:#fff; border-radius:10px; margin-top:50px;
@@ -9,15 +11,75 @@
 
 /* Header */
 .card__header{
-  position:relative; padding:18px; border-bottom:1px solid #e9ecef;
-  background:#f7f4f2; border-radius:10px 10px 0 0;
-  display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  position:relative;
+  padding:18px;
+  border-bottom:1px solid #e9ecef;
+  background:#f7f4f2;
+  border-radius:10px 10px 0 0;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:nowrap;
 }
-.card__title{ margin:0; font-size:18px; font-weight:700; color:#333; }
-.muted{ color:#6b7280; font-weight:500; }
 
-/* Actions */
-.actions-stack{ display:flex; gap:12px; }
+.card__title{ margin:0; font-size:1.1rem; font-weight:800; color:#0f172a; }
+
+.breadcrumb{ margin-left:auto; color:#6b7280; font-size:14px; display:flex; gap:8px; align-items:center; }
+.breadcrumb .sep{ opacity:.7; }
+.breadcrumb .current{ color:#111827; font-weight:600; }
+
+
+/* ===== Icon button (GLOBAL) ===== */
+.row-actions .icon-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 44px;
+  height: 44px;
+  display: inline-grid;
+  place-items: center;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.28);
+  cursor: pointer;
+  transition: transform .1
+  2s ease, box-shadow .12s ease, background .12s ease;
+}
+
+.row-actions .icon-btn:hover {
+  background: #0ac60a;
+  box-shadow: 0 10px 22px rgba(29, 78, 216, 0.32);
+  transform: translateY(-1px);
+}
+
+.row-actions .icon-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(29, 78, 216, 0.26);
+}
+
+.row-actions .icon-btn:focus-visible {
+  outline: 3px solid rgba(59,130,246,.45);
+  outline-offset: 2px;
+}
+
+.row-actions .icon-btn svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+/* ธีมสำหรับปุ่มกู้คืน (จะเปลี่ยนสีภายหลังได้) */
+.icon-btn--refresh {}
+
+/* Optional: stack on small screens */
+@media (max-width: 640px){
+  .card__header{ flex-wrap:wrap; }
+  .breadcrumb{ margin-left:0; width:100%; justify-content:flex-start; }
+}
+.muted{ color:#6b7280; font-weight:500; }
 
 /* ====== Table (desktop base) ====== */
 .table-wrap{ padding:0 12px 14px; width:100%; overflow-x:auto; }
@@ -28,70 +90,180 @@
 
 
 }
+/* Header cells look like Category.css */
 .Cate-table thead th{
-  background:#dfe5ec; color:#333; text-align:left; font-weight:700;
-  padding:14px 16px; white-space:nowrap; border:none;
-}
-.Cate-table tbody td{
-  padding:12px 16px; vertical-align:middle; color:#2b2b2b; border:none !important;
-}
-.Cate-table tbody tr:last-child td{ border-bottom:none; }
-
-/* Columns */
-.col-index{ text-align:left; min-width:60px; color:#333; }
-.col-name .name-ellipsis{ display:inline-block; max-width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.col-actions{ text-align:right; min-width:140px; padding-right:20px; }
-.col-actions .row-actions{ display:inline-flex; gap:12px; align-items:center; }
-
-/* Buttons */
-.edit-btn{
-  width:52px; height:52px; border-radius:999px; border:0; cursor:pointer;
-  background:#ff9800; color:#111; display:inline-flex; align-items:center; justify-content:center;
-  box-shadow:0 6px 14px rgba(0,0,0,.12);
-  margin-right: 20px;
-  transition:transform .12s ease, box-shadow .2s ease, opacity .2s ease;
-}
-.edit-btn svg{ font-size:22px; transform:translateY(1px); }
-.edit-btn:hover{ transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.18); }
-.btn-primary{ background:#14a44d; color:#fff; border:0; border-radius:8px; padding:10px 14px; cursor:pointer; }
-.btn-secondary{ background:#e5e7eb; color:#111; border:0; border-radius:8px; padding:10px 14px; cursor:pointer; }
-.inp{ width:100%; padding:10px 12px; border:1px solid #e5e7eb; border-radius:8px; margin:6px 0 10px; }
-.lbl{ display:block; font-weight:600; margin-top:6px; }
-
-/* ====== 1024px down (minor tweaks) ====== */
-@media (max-width:1024px){
-  .card__header{ padding:14px; }
-  .Cate-img{ width:240px; height:135px; } /* keep 16:9, smaller */
+  background:#dfe5ec;
+  color:#333;
+  text-align:left;
+  font-weight:700;
+  padding:14px 16px;
+  white-space:nowrap;
+  border:none;
 }
 
-/* ====== 768px down: Card mode ====== */
-@media (max-width:768px){
-  /* table -> cards */
-  .Cate-table{ min-width:0; border-spacing:0 12px; }
-  .Cate-table thead{ display:none; }
+/* Optional: column-specific tweaks */
+.col-idx{ min-width:60px; }
+.col-actions-hdr{ width:120px; } /* just reserves space for the action buttons */
 
+/* Mobile card mode (same as Category.css) */
+@media (min-width: 1025px){
+  .Cate-table{ display: table !important; }
+  .Cate-table thead{ display: table-header-group !important; }
+  .Cate-table tbody{ display: table-row-group !important; }
+  .Cate-table tr{ display: table-row !important; }
+  .Cate-table th,
+  .Cate-table td{ display: table-cell !important; }
+  .Cate-table tbody td::before{ content: none !important; }
+}
+
+/* ----- มือถือ: card mode ที่ปลอดภัย ----- */
+/* ====== 1024px down: Card mode (single source of truth) ====== */
+/* --- MOBILE CARD MODE (≤1024px) TWEAKS TO MATCH SCREENSHOT --- */
+/* ===== Mobile / Tablet: card mode ===== */
+/* ==== MOBILE: แสดง Label บน / Value ล่าง ==== */
+/* === CategoryDelete: Mobile card mode EXACTLY like Category === */
+@media (max-width: 1024px){
+  /* Stop horizontal scroll from desktop min-width */
+  .table-wrap { overflow: visible; }
+
+  .Cate-table{
+    display: block !important;
+    width: 100%;
+    min-width: 0;               /* override min-width:700px */
+    border-spacing: 0 12px;
+  }
+  .Cate-table thead{ display: none !important; }
+  .Cate-table tbody{ display: block !important; }
+
+  /* Each row becomes a card */
   .Cate-table tbody tr{
-    display:grid; grid-template-columns:90px 1fr; gap:0 12px;
-    background:#fff; border:none; border-radius:12px;
-    padding:12px 16px; box-shadow:0 2px 8px rgba(0,0,0,.05); margin-bottom:14px;
+    display: block !important;
+    position: relative;
+    background: #fff;
+    border: 1px solid #E7EAEE;
+    border-radius: 14px;
+    padding: 14px 16px 60px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
   }
 
-  .Cate-table tbody td{
-    display:grid; grid-template-columns:90px 1fr; gap:8px 12px;
-    padding:10px 0; align-items:center; border:none !important;
+  /* Reset any global center-align on TDs */
+  .Cate-table tbody td { text-align: initial !important; }
+
+  /* Label on top, value below */
+  .Cate-table tbody td[data-label]{
+    display: grid !important;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;     /* row 1 = label, row 2 = value */
+    row-gap: 6px;
+    align-items: start;
+    padding: 10px 0;
   }
-  .Cate-table tbody td::before{
-    content:attr(data-label); font-weight:600; color:#7b8490; white-space:nowrap;
+  .Cate-table tbody td[data-label]::before{
+    content: attr(data-label);
+    grid-row: 1;
+    font-weight: 700;
+    color: #5F6B7A;
+    text-align: left !important;
+  }
+  .Cate-table tbody td[data-label] .cell-value{
+    grid-row: 2;                       /* <-- FIX: was 0 */
+    justify-self: start;
+    text-align: left !important;
+    white-space: normal;
+    word-break: break-word;
+    font-weight: 600;
+    color: #111827;
   }
 
-  /* actions bottom-right */
-  .col-actions{ grid-column:1 / -1; padding:8px 0 2px; text-align:left; }
-  .row-actions{ display:flex; gap:12px; justify-content:flex-end; padding-right:4px; }
-  .edit-btn{ width:44px; height:44px;  }
+  /* If you want some values right-aligned (numbers, index), keep these */
+  /* .Cate-table tbody td[data-label="#"] .cell-value,
+  .Cate-table tbody td[data-label="ຈຳນວນສິນຄ້າ"] .cell-value,
+  .Cate-table tbody td[data-label="ລຳດັບຄວາມສຳຄັນ"] .cell-value{
+    justify-self: end;
+    text-align: right !important;
+  }  */
+
+  /* Cells without data-label (like the action slot) */
+  .Cate-table tbody td:not([data-label]){
+    display: block !important;
+    padding: 10px 0;
+  }
+
+  /* Float the orange edit button bottom-right like Category */
+  .col-actions{ grid-column: 1 / -1; padding: 0 !important; }
+  .col-actions .row-actions{
+    position: absolute;
+    right: 16px;
+    bottom: 12px;
+    display: flex;
+    gap: 10px;
+  }
+
 }
 
-/* ====== 420px down: tighter labels ====== */
-@media (max-width:420px){
-  .Cate-table tbody tr{ grid-template-columns:82px 1fr; }
-  .Cate-table tbody td{ grid-template-columns:82px 1fr; }
+/* Tiny phones: tighten spacing a bit */
+@media (max-width: 420px){
+  .Cate-table tbody td[data-label]{ row-gap: 4px; }
 }
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: grid;
+  place-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(1.2px);
+  animation: fadeIn .14s ease-out;
+}
+
+.modal {
+  width: min(680px, 92vw);
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #ececec;
+  padding: clamp(20px, 3vw, 28px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.18);
+  text-align: center;
+  animation: modalIn .14s ease-out;
+}
+
+.modal__title {
+  margin: 0 0 18px;
+  font-size: clamp(18px, 2.4vw, 28px);
+  font-weight: 800;
+  color: #111827;
+}
+
+.modal__actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.btn {
+  min-width: 120px;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 10px;
+  border: 0;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: #3b82f6;
+  color: #fff;
+}
+.btn--primary:hover { background: #2563eb; }
+
+.btn--ghost {
+  background: #e5e7eb;
+  color: #111827;
+}
+.btn--ghost:hover { background: #d1d5db; }
+
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+@keyframes modalIn { from { transform: translateY(6px); opacity: .96 } to { transform: translateY(0); opacity: 1 } }

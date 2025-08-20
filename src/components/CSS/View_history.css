@@ -1,0 +1,267 @@
+.vh-wrapper {
+  padding: 16px 14px;
+  background: #ededed;
+  min-height: 100%;
+  box-sizing: border-box;
+  color: #2b2b2b;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Lao",
+    "Noto Sans Thai", Arial, sans-serif;
+}
+
+.vh-title {
+  margin: 0 0 10px 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.vh-filters{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  align-items: center;
+}
+
+.vh-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.vh-input {
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+  height: 40px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-width: 260px;
+}
+
+.date-input {
+  height: 40px;
+  width: 50%;
+  border: 1px solid #dcdcdc;
+  background: #fff;
+  border-radius: 6px;
+  padding: 6px 5px;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.vh-to {
+  background: #e6eaed;
+  border: 1px solid #dcdcdc;
+  height: 40px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  border-radius: 6px;
+  margin: 0 -6px;
+  position: relative;
+  z-index: 1;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-search {
+  background: #1e8e3e;
+  color: #fff;
+  width: 100px;
+  margin: 20px 0 0 15px;
+}
+
+.btn-excel {
+  background: #1ea514;
+  color: #fff;
+  min-width: 150px;
+  display: inline-flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.btn-excel svg {
+  margin-right: 6px;
+}
+
+.vh-card {
+  margin-top: 10px;
+  background: #eeeeee;
+  border-radius: 10px;
+  padding: 12px;
+  overflow-x: auto;
+}
+
+/* Desktop table */
+.vh-table-head {
+  display: grid;
+  grid-template-columns: 220px 1.4fr 1fr 140px 120px 160px;
+  background: #d1d3d4;
+  border-radius: 8px 8px 0 0;
+  font-weight: 700;
+  padding: 14px 16px;
+  min-width: 860px;
+}
+
+.vh-table-body {
+  background: #fff;
+  border: 1px solid #cccccc;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  min-width: 860px;
+}
+
+.vh-row {
+  display: grid;
+  grid-template-columns: 220px 1.4fr 1fr 140px 120px 160px;
+  padding: 14px 16px;
+  border-top: 1px solid #eee;
+}
+
+.vh-row:first-child {
+  border-top: none;
+}
+
+.vh-table-head div,
+.vh-row div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vh-product {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vh-empty {
+  padding: 24px;
+  text-align: center;
+  color: #777;
+}
+
+/* ---------- Responsive ---------- */
+
+/* Medium screens */
+@media (max-width: 1200px) {
+  .vh-filters {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .vh-table-head,
+  .vh-row {
+    grid-template-columns: 180px 1.2fr 1fr 120px 100px 140px;
+  }
+}
+
+/* Phones & small tablets */
+@media (max-width: 768px) {
+  .vh-wrapper {
+    padding: 12px 10px;
+  }
+  .vh-title {
+    font-size: 20px;
+  }
+
+  /* Filters stack */
+  .vh-filters {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .date-range {
+    width: 100%;
+    min-width: unset;
+  }
+  .date-input {
+    width: calc(50% - 6px);
+  }
+
+  /* Buttons: compact, side-by-side */
+  .vh-buttons {
+    display: flex;
+    flex-wrap: nowrap; /* stay on one line */
+    justify-content: flex-start;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .btn-search,
+  .btn-excel {
+    width: auto; /* not full-width */
+    min-width: unset;
+    padding: 0 16px;
+    margin-top: 0;
+  }
+  .btn {
+    height: 38px;
+  } /* slightly shorter */
+
+  /* Turn table into stacked cards */
+  .vh-table-head {
+    display: none;
+  }
+  .vh-table-body {
+    min-width: 0;
+    border: none;
+    background: transparent;
+  }
+
+  .vh-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    gap: 8px 12px;
+  }
+
+  /* Each cell shows its label */
+  .vh-cell {
+    position: relative;
+    padding-left: 0;
+    white-space: normal;
+  }
+  .vh-cell::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #666;
+    margin-bottom: 2px;
+  }
+
+  /* Make long product names span full width */
+  .vh-product {
+    grid-column: 1 / -1;
+    word-break: break-word;
+  }
+}

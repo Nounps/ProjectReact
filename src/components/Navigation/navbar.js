@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState} from "react";
 import { IoIosList } from "react-icons/io";
 import { RiArrowDropDownLine,RiLogoutBoxRLine } from "react-icons/ri";
 import {
-  FaHome, FaBoxes, FaWarehouse,FaUser, FaKey} from "react-icons/fa";
+  FaHome, FaBoxes, FaWarehouse,FaUser} from "react-icons/fa";
 import { Link, NavLink, useLocation,useNavigate} from "react-router-dom";
 import "../CSS/navbar.css"; // CSS styles for the navbar
+
 
 const NAV = [
   { label: "ໜ້າຫຼັກ", icon: FaHome, to: "/" },
@@ -14,19 +15,20 @@ const NAV = [
     children: [
       { label: "ໝວດໝູ່ສິນຄ້າ", to: "/categories",  },
       { label: "ແບຣນ",         to: "/brands",  },
-      { label: "ສິນຄ້າ",          to: "/products",},
+      { label: "ສິນຄ້າ",          to: "/product",},
     ],
   },
   {
     label: "ຈັດການຄັງສິນຄ້າ",
     icon: FaWarehouse,
     children: [
-      { label: "ພາບລວມ",            to: "/inventory/overview",   },
-      { label: "ຈັດການຕົ້ນທຸນ",        to: "/inventory/cost",       },
-      { label: "ເບິກອອກ/ຍ້າຍຄັງ",    to: "/inventory/transfer",  },
-      { label: "ເບິ່ງປະຫວັດ",          to: "/inventory/history",    },
-      { label: "Cycle Count",       to: "/inventory/cycle-count",  },
-      { label: "ຄັງສິນຄ້າ",         to: "/inventory/warehouses",   },
+      { label: "ພາບລວມ",            to: "/overview",   },
+      { label: "ຮັບຂອງເຂົ້າ",        to: "/import",       },
+      { label: "ຈັດການຕົ້ນທຸນ",        to: "/costmanagement",       },
+      { label: "ເບິກອອກ/ຍ້າຍຄັງ",    to: "/WithdrawalTransfer",  },
+      { label: "ເບິ່ງປະຫວັດ",          to: "/history",    },
+      { label: "Cycle Count",       to: "/cyclecount",  },
+      { label: "ຄັງສິນຄ້າ",         to: "/warehouse",   },
     ],
   },
 ];
@@ -35,7 +37,7 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
   const headerRef = useRef(null);
   const sidebarRef = useRef(null);
   const { pathname } = useLocation();
-
+  const [showConfirm, setShowConfirm] = useState(false);
   /** sync header height -> CSS var */
   useEffect(() => {
     const setHeaderVar = () => {
@@ -80,6 +82,8 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
       ) setSidebarOpen(false);
 
       if (userRef.current && !userRef.current.contains(e.target)) setUserOpen(false);
+
+      
     };
     const handleEsc = (e) => e.key === "Escape" && (setSidebarOpen(false), setUserOpen(false));
     document.addEventListener("mousedown", handleOutside);
@@ -89,11 +93,20 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
       document.removeEventListener("keydown", handleEsc);
     };
   }, [setSidebarOpen]);
-  const handleLogout = () => {
-    setUserOpen(false);
-    // TODO: ใส่ลอจิก logout จริง
-    navigate("/login");
-  };
+
+    function handleAskLogout() {
+  setShowConfirm(true);
+}
+
+function handleConfirmLogout() {
+  setShowConfirm(false);
+  // TODO: call your API to delete here
+  navigate("/login"); 
+}
+
+function handleCancelLogout() {
+  setShowConfirm(false);
+}
   return (
     <>
       <header ref={headerRef} className="header">
@@ -105,13 +118,11 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
             tabIndex={0}
             onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setSidebarOpen(p => !p)}
           />
-          <h1 className="logo">
-            <Link to="/" className="logo-link">
-              <span className="logo-u">U</span>
-              <span className="text-black">Lao</span>
-              <span className="Dev">Dev</span>
-            </Link>
-          </h1>
+      <div className="logo">
+  <Link to="/" className="logo-link">
+    <img src={require('../../asset/images/Logo.png')} alt="Logo" className="logo-u" style={{ height: 32 }} />
+  </Link>
+</div>
         </div>
          {/* ✅ User dropdown */}
         <div className="user" ref={userRef}>
@@ -129,11 +140,8 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
             <button className="user-item" onClick={() => { setUserOpen(false); navigate("/account"); }}>
               <FaUser /><span>ຂໍ້ມູນສ່ວນໂຕ</span>
             </button>
-            <button className="user-item" onClick={() => { setUserOpen(false); navigate("/change-password"); }}>
-              <FaKey /><span>ປ່ຽນລະຫັດຜ່ານ</span>
-            </button>
             <div className="user-divider" />
-            <button className="user-item danger" onClick={handleLogout}>
+            <button className="user-item danger" onClick={handleAskLogout}>
               <RiLogoutBoxRLine /><span>ອອກຈາກລະບົບ</span>
             </button>
           </div>
@@ -196,6 +204,17 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
           )}
         </ul>
       </aside>
+       {showConfirm && (
+        <div className="confirm-overlay" role="dialog" aria-modal="true">
+          <div className="confirm-dialog">
+            <div className="confirm-title">ຕ້ອງການອອກຈາກລະບົບແມ່ນບໍ່</div>
+            <div className="confirm-actions">
+              <button className="btn-ok" onClick={handleConfirmLogout}>OK</button>
+              <button className="btn-secondary" onClick={handleCancelLogout}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

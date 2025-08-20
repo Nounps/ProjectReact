@@ -1,8 +1,12 @@
 
 /* ✅ ตัวอย่างที่ถูกต้องใน agent_report_styles.css */
+:root{
+--font-family: "NotoSansLao", "Montserrat", sans-serif;
+}
+
 body {
+  font-family: var(--font-family);
   background-color: #e2e2e2; /* หรือสีที่คุณต้องการ */
-  font-family: 'Prompt', sans-serif;
   margin: 0;
   padding: auto;
 }
@@ -55,7 +59,7 @@ h2{
 
 
 .home-page button {
-  background-color: #969696;
+  background-color: #3593b5;
   font-family: "NotoSansLao", "Montserrat", sans-serif;
   font-size: 1.3cap;
   color: white;
@@ -74,6 +78,7 @@ button:hover {
 }
 
 label{
+  
   font-weight: bold;
   margin-bottom: 5px;
   display: block; 

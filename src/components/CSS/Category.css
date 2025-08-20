@@ -1,6 +1,10 @@
 /* ====== Layout base ====== */
 .main{ width:100%; padding:16px; box-sizing:border-box; }
 
+.wrapper { margin-left: 0; transition: margin-left .3s cubic-bezier(.4,0,.2,1); }
+.wrapper.shifted { margin-left: 260px; }   /* same as sidebar width */
+
+
 .Catecard{
   background:#fff; border-radius:10px; margin-top:10px;
   box-shadow:0 2px 8px rgba(0,0,0,.06); border:1px solid #e9ecef;
@@ -17,16 +21,19 @@
 .muted{ color:#6b7280; font-weight:500; }
 
 /* Actions */
-.actions-stack{ display:flex; gap:12px; }
+.actions-stack{ display:flex; gap:12px; flex-wrap:wrap; }
 .fab{
   display:flex; align-items:center; gap:8px; border:0; cursor:pointer;
   padding:8px 12px; border-radius:999px; color:#fff;
   box-shadow:0 6px 16px rgba(0,0,0,.12);
   transition:transform .12s ease, box-shadow .2s ease, opacity .2s ease;
+  font-weight: 700;
 }
 .fab:hover{ transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.16); }
-.fab__icon{ font-size:18px; } .fab__label{ font-weight:700; font-size:14px; letter-spacing:.2px; }
+.fab__icon{ font-size:18px; } .fab__label{ font-weight:700; font-size:14px; letter-spacing:.2px; opacity: .95; }
 .fab--primary{ background:#14a44d; } .fab--secondary{ background:#4fa3ff; }
+
+
 
 /* ====== Table (desktop base) ====== */
 .table-wrap{ padding:0 12px 14px; width:100%; overflow-x:auto; }
@@ -34,8 +41,6 @@
 .Cate-table{
   width:100%; min-width:700px; table-layout:auto;
   border-collapse:collapse; border:none; background:#fff; border-radius:8px; overflow:hidden;
-
-
 }
 .Cate-table thead th{
   background:#dfe5ec; color:#333; text-align:left; font-weight:700;
@@ -45,6 +50,11 @@
   padding:12px 16px; vertical-align:middle; color:#2b2b2b; border:none !important;
 }
 .Cate-table tbody tr:last-child td{ border-bottom:none; }
+
+/* Remove temporary debug borders on desktop */
+.Cate-table tbody tr,
+.Cate-table tbody td { outline: none; }
+
 
 /* Columns */
 .col-index{ text-align:left; min-width:60px; color:#333; }
@@ -57,7 +67,7 @@
   width:52px; height:52px; border-radius:999px; border:0; cursor:pointer;
   background:#ff9800; color:#111; display:inline-flex; align-items:center; justify-content:center;
   box-shadow:0 6px 14px rgba(0,0,0,.12);
-  margin-right: 20px;
+  margin-right:20px;
   transition:transform .12s ease, box-shadow .2s ease, opacity .2s ease;
 }
 .edit-btn svg{ font-size:22px; transform:translateY(1px); }
@@ -67,40 +77,90 @@
 .inp{ width:100%; padding:10px 12px; border:1px solid #e5e7eb; border-radius:8px; margin:6px 0 10px; }
 .lbl{ display:block; font-weight:600; margin-top:6px; }
 
-/* ====== 1024px down (minor tweaks) ====== */
+/* ===== Desktop SAFE defaults (กันกติกาอื่นไปเปลี่ยน) ===== */
+/* ทำให้โหมดเดสก์ท็อปเป็นตารางจริง ๆ กันสไตล์อื่นมาซ่อน */
+/* ===== Desktop-only: keep real table layout ===== */
+@media (min-width: 1025px){
+  .Cate-table{ display: table !important; }
+  .Cate-table thead{ display: table-header-group !important; }
+  .Cate-table tbody{ display: table-row-group !important; }
+  .Cate-table tr{ display: table-row !important; }
+  .Cate-table th,
+  .Cate-table td{ display: table-cell !important; }
+  .Cate-table tbody td::before{ content: none !important; }
+}
+
+/* ----- มือถือ: card mode ที่ปลอดภัย ----- */
+/* ====== 1024px down: Card mode (single source of truth) ====== */
+/* --- MOBILE CARD MODE (≤1024px) TWEAKS TO MATCH SCREENSHOT --- */
+/* ===== Mobile / Tablet: card mode ===== */
+/* ==== MOBILE: แสดง Label บน / Value ล่าง ==== */
 @media (max-width:1024px){
-  .card__header{ padding:14px; }
-  .Cate-img{ width:240px; height:135px; } /* keep 16:9, smaller */
-}
 
-/* ====== 768px down: Card mode ====== */
-@media (max-width:768px){
-  /* table -> cards */
-  .Cate-table{ min-width:0; border-spacing:0 12px; }
-  .Cate-table thead{ display:none; }
-
+  /* แถวการ์ดคงเดิมได้ */
   .Cate-table tbody tr{
-    display:grid; grid-template-columns:90px 1fr; gap:0 12px;
-    background:#fff; border:none; border-radius:12px;
-    padding:12px 16px; box-shadow:0 2px 8px rgba(0,0,0,.05); margin-bottom:14px;
+    display: block !important;            /* ใช้บล็อกก็ได้ หรือ grid เดิมก็ได้ */
+    position: relative;
+    background:#fff; border:1px solid #E7EAEE;
+    border-radius:14px; padding:14px 16px 60px; margin-bottom:14px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
   }
 
-  .Cate-table tbody td{
-    display:grid; grid-template-columns:90px 1fr; gap:8px 12px;
-    padding:10px 0; align-items:center; border:none !important;
-  }
-  .Cate-table tbody td::before{
-    content:attr(data-label); font-weight:600; color:#7b8490; white-space:nowrap;
+  /* แต่ละเซลล์ให้วางบน-ล่าง */
+  .Cate-table tbody td[data-label]{
+    display: grid !important;
+    grid-template-columns: 1fr;           /* 1 คอลัมน์ */
+    grid-template-rows: auto auto;        /* แถวที่ 1 = label, แถวที่ 2 = value */
+    row-gap: 6px;
+    align-items: start;
+    padding: 10px 0;
   }
 
-  /* actions bottom-right */
-  .col-actions{ grid-column:1 / -1; padding:8px 0 2px; text-align:left; }
-  .row-actions{ display:flex; gap:12px; justify-content:flex-end; padding-right:4px; }
-  .edit-btn{ width:44px; height:44px;  }
+  /* Label = บรรทัดบน */
+  .Cate-table tbody td[data-label]::before{
+    content: attr(data-label);
+    grid-row: 1;
+    font-weight: 700;
+    color: #5F6B7A;
+    text-align: left !important;
+  }
+
+  /* Value = บรรทัดล่าง */
+  .Cate-table tbody td[data-label] .cell-value{
+    grid-row: 0;
+    justify-self: start;                  /* ชิดซ้าย */
+    text-align: left !important;          /* ให้ขึ้นบรรทัดใหม่ได้สวย */
+    white-space: normal;
+    word-break: break-word;
+    font-weight: 600;
+    color:#111827;
+  }
+
+  /* ถ้าบางค่าต้องการชิดขวา (เช่น ตัวเลข) ระบุเป็นรายหัวข้อได้ */
+  /* .Cate-table tbody td[data-label="#"] .cell-value,
+  .Cate-table tbody td[data-label="ຈຳນວນສິນຄ້າ"] .cell-value,
+  .Cate-table tbody td[data-label="ລຳດັບຄວາມສຳຄັນ"] .cell-value{
+    justify-self: end;
+    text-align: right !important;
+  } */
+
+  /* ช่องที่ไม่มี data-label (เช่น แถวปุ่มจัดการ) */
+  .Cate-table tbody td:not([data-label]){
+    display: block !important;
+    padding: 10px 0;
+  }
+
+  /* ปุ่มแก้ไขลอยขวาล่างของการ์ด */
+  .col-actions{ grid-column: 1 / -1; padding: 0 !important; }
+  .col-actions .row-actions{
+    position: absolute; right: 16px; bottom: 12px;
+    display: flex; gap: 10px;
+  }
+  .edit-btn{ width:48px; height:48px; background:#FFA11A; color:#111;
+    border-radius:999px; box-shadow:0 10px 22px rgba(0,0,0,.18); margin-right:0; }
 }
 
-/* ====== 420px down: tighter labels ====== */
+/* จอเล็กมาก ลด spacing นิดนึง */
 @media (max-width:420px){
-  .Cate-table tbody tr{ grid-template-columns:82px 1fr; }
-  .Cate-table tbody td{ grid-template-columns:82px 1fr; }
+  .Cate-table tbody td[data-label]{ row-gap: 4px; }
 }

@@ -1,0 +1,236 @@
+.ov-wrapper {
+  padding: 16px;
+  color: #2b2b2b;
+  font-family: "Phetsarath OT";
+  transition: margin-left 0.3s cubic-bezier(.4,0,.2,1); 
+  margin-left: 0;
+}
+ .ov-wrapper.shifted{margin-left: 260px; /* or the width of your sidebar */}
+
+.ov-title {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 48px 0 16px;
+}
+
+
+.ov-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.ov-input {
+  height: 42px;
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: "Phetsarath OT";
+  outline: none;
+}
+
+.ov-select-wrap {
+  position: relative;
+}
+
+.ov-select {
+  font-family: "Phetsarath OT";
+  appearance: none;
+  width: 100%;
+  height: 42px;
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  padding: 10px 36px 10px 12px;
+  font-size: 14px;
+  outline: none;
+}
+
+.ov-select-caret {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 18px;
+  color: #6b7280;
+}
+
+.ov-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  height: 42px;
+  border-radius: 8px;
+  font-family: "Phetsarath OT";
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+  flex: 1;
+}
+.ov-btn.ov-search {
+  background-color: #2b8a3e;
+  color: white;
+  height: 42px;
+  width: 25%;
+}
+.ov-btn.ov-search:hover {
+  background-color: #237232;
+}
+
+.ov-btn.ov-excel {
+  background-color: #28a745;
+  color: white;
+  height: 42px;
+  width: 50%;
+}
+.ov-btn.ov-excel:hover {
+  background-color: #218838;
+}
+
+.ov-table-wrap {
+  background: #f3f4f6;
+  border-radius: 10px;
+  /* padding: 0; */
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  padding:0 12px 14px; width:100%; overflow-x:auto;
+}
+
+.ov-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  
+}
+
+.ov-table thead th {
+  background: #e5e7eb;
+  color: #23272a;
+  font-weight: 700;
+  text-align: center;
+  padding: 14px 12px;
+  border-bottom: 1px solid #d1d5db;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.ov-table thead th.left {
+  text-align: left;
+  padding-left: 18px;
+}
+
+.ov-table tbody td {
+  background: #ffffff;
+  padding: 14px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  text-align: center;
+  font-size: 14px;
+}
+
+.ov-table tbody td.left {
+  text-align: left;
+  padding-left: 18px;
+}
+
+.ov-table tbody tr:nth-child(even) td {
+  background: #fbfbfb;
+}
+
+.ov-name {
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.ov-link {
+  font-family: "Phetsarath OT";
+  background: transparent;
+  border: none;
+  color: #2076ff;
+  font-size: 13px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: 800;
+}
+
+@media (max-width: 768px) {
+  .ov-controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === Controls row: input | select | search btn | excel btn === */
+.ov-controls {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(320px, 1.5fr) auto auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+/* === Buttons (no flex-grow, no fixed width) === */
+.ov-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  height: 42px;
+  border-radius: 8px;
+  font-family: "Phetsarath OT";
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+  /* remove flex-grow */
+  /* flex: 1;  */
+}
+
+.ov-btn.ov-search {
+  background-color: #2b8a3e;
+  color: #fff;
+  /* remove fixed width */
+  /* width: 25%; */
+  min-width: 96px;
+  justify-self: start;
+}
+.ov-btn.ov-search:hover {
+  background-color: #237232;
+}
+
+/* ปุ่ม Export Excel */
+.ov-btn.ov-excel {
+  background-color: #28a745;
+  color: #fff;
+  /* remove fixed width */
+  /* width: 50%; */
+  min-width: 140px;
+  justify-self: start;
+}
+.ov-btn.ov-excel:hover {
+  background-color: #218838;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .ov-controls {
+    grid-template-columns: 1fr;
+  }
+  .ov-btn {
+    width: 100%;
+  }
+}

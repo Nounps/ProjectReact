@@ -5,7 +5,6 @@ import App from './App.js';
 import reportWebVitals from './reportWebVitals';
 import "./asset/fonts.css";
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

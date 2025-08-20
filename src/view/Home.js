@@ -17,10 +17,10 @@ export default function Homepage() {
   };
 
   return (
-<div className="flex w-full overflow-x-auto">
+<div className="page-wrap w-full">
   <Navbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-  <main className={`main p-6 ${sidebarOpen ? "shifted" : ""}`}>
+  <main className={`wrapper${sidebarOpen ? " shifted" : ""}`}>
     {/* ...content */}
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold">ລາຍງານຜົນປະກອບການຕາມຕົວແທນລະດັບທີ່ 1</h2>

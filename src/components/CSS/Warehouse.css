@@ -1,0 +1,98 @@
+.wh-page {
+  padding: 20px;
+  background: #f1f3f5;
+  min-height: 100vh;
+
+  font-family: "Phetsarath OT";
+}
+
+.wh-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.wh-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+}
+
+.wh-add {
+  font-family: "Phetsarath OT";
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #1e8e3e;
+  color: #fff;
+  font-weight: 700;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.wh-add:hover {
+  background: #18752f;
+}
+
+.wh-add-icon {
+  font-size: 14px;
+}
+
+.wh-table {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.wh-row {
+  display: grid;
+  grid-template-columns: 60px 1.5fr 1fr 1fr 60px;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid #e4e7eb;
+}
+
+.wh-row:last-child {
+  border-bottom: none;
+}
+
+.wh-head {
+  background: #e6eaed;
+  font-weight: 700;
+}
+
+.col-id,
+.col-name,
+.col-sku,
+.col-total,
+.col-action {
+  display: flex;
+  align-items: center;
+}
+
+.col-id {
+  justify-content: center;
+}
+
+.col-action {
+  justify-content: center;
+}
+
+.wh-edit-btn {
+  background: #f7931e;
+  border: none;
+  padding: 6px;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s ease;
+}
+
+.wh-edit-btn:hover {
+  background: #d67c18;
+}
